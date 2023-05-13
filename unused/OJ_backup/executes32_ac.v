@@ -97,7 +97,7 @@ module executs32 (
     end
 
     always @* begin
-        if (((ALU_ctl == 3'b111) && (Exe_code[3] == 1)) || ((ALU_ctl == 3'b110) && (Exe_opcode == _slti))) begin
+        if (((ALU_ctl == 3'b111) && (Exe_code[3] == 1)) || ((ALU_ctl[2:1] == 2'b11) && I_format)) begin
             ALU_Result = (ALU_ex[31] == 1'b1 ? 32'b1 : 32'b0);
         end else if ((ALU_ctl == 3'b101) && I_format) begin
             ALU_Result[31:0] = {in2[15:0], 16'b0};

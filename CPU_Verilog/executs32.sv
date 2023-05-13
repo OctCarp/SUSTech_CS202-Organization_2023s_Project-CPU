@@ -66,7 +66,7 @@ module Excute (
     end
 
     always @* begin
-        if (((ALU_ctl == 3'b111) && (Exe_code[3] == 1)) || ((ALU_ctl == 3'b110) && (op == _slti))) begin
+        if (((ALU_ctl == 3'b111) && (Exe_code[3] == 1)) || ((ALU_ctl[2:1] == 2'b11) && I_type)) begin
             ALU_out = (ALU_ex[31] == 1'b1 ? 32'b1 : 32'b0);
         end else if ((ALU_ctl == 3'b101) && I_type) begin
             ALU_out[31:0] = {in2[15:0], 16'b0};
