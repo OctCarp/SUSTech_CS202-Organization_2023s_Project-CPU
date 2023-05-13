@@ -1,4 +1,5 @@
-.data 
+.data
+
 .text
 main:
     lui $28, 0xFFFF			
@@ -53,7 +54,7 @@ t000_fin:
 
 ####################################
 tb001_1:
-    lw $s7, 0x73($28)#s7表示使能信号，按下按钮，开始计算
+    lw $s7, 0x73($28)  
     bne $s7, $zero, tb001_1
 tb001_2:
     lw $s7, 0x73($28)
@@ -66,7 +67,7 @@ tb001_2:
 
 ####################################
 tb010_1:
-    lw $s7, 0x73($28)#s7表示使能信号，按下按钮，开始计算
+    lw $s7, 0x73($28)
     bne $s7, $zero, tb010_1
 tb010_2:
     lw $s7, 0x73($28)
@@ -76,7 +77,7 @@ tb010_2:
     j begin_1
 ####################################
 tb011_1:
-    lw $s7, 0x73($28)#s7表示使能信号，按下按钮，开始计算
+    lw $s7, 0x73($28)
     bne $s7, $zero, tb011_1
 tb011_2:
     lw $s7, 0x73($28)
@@ -86,7 +87,7 @@ tb011_2:
     j begin_1
 ####################################
 tb100_1:
-    lw $s7, 0x73($28)#s7表示使能信号，按下按钮，开始计算
+    lw $s7, 0x73($28)
     bne $s7, $zero, tb100_1
 tb100_2:
     lw $s7, 0x73($28)
@@ -96,7 +97,7 @@ tb100_2:
     j begin_1
 ####################################
 tb101_1:
-    lw $s7, 0x73($28)#s7表示使能信号，按下按钮，开始计算
+    lw $s7, 0x73($28)
     bne $s7, $zero, tb101_1
 tb101_2:
     lw $s7, 0x73($28)
@@ -107,7 +108,7 @@ tb101_2:
     j begin_1
 ####################################
 tb110_1:
-    lw $s7, 0x73($28)#s7表示使能信号，按下按钮，开始计算
+    lw $s7, 0x73($28)
     bne $s7, $zero, tb110_1
 tb110_2:
     lw $s7, 0x73($28)
@@ -127,7 +128,7 @@ tb111_2:
     addi $s0, $v0, 0#s0保存a的值
 
 inputb_1:
-    lw $s7, 0x73($28) #s7表示使能信号，输入完a后，拨上拨码，从板子读取b的值，接着需要按下按钮，继续读取b
+    lw $s7, 0x73($28) #s7表示使能信号，输入完a后，按下按钮，接着需要按下按钮，继续读取b
     bne $s7, $zero, inputb_1
 inputb_2:
     lw $s7, 0x73($28)
@@ -139,11 +140,15 @@ inputb_2:
 ####################################
 extend:
     slti $t0, $s0, 0x0080
-    bne $t0, $zero, ex2 # less than = 1, noneed
+    bne $t0, $zero, ex2 # less than = 1, no need
     or $s0, $s0, $s6
 ex2:
     slti $t0, $s1, 0x0080
-    bne $t0, $zero, exit_ex # less than = 1, noneed
+    bne $t0, $zero, exit_ex # less than = 1, no need
     or $s1, $s1, $s6
 exit_ex:    
     jr $ra
+
+###########
+
+# https://github.com/TsingYiPainter/Sustech_CS202_Computer-Organization_22S/blob/main/code/assembly_code/Project_test1_withIO.asm
