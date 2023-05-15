@@ -23,19 +23,13 @@ module CPU_TOP (
     //assign ins = Instruction;
     //
     //deb
-    wire [23:0] sw_sig;
     wire ck_sig;
-    wire start_pg_sig;
 
-    Debounce deb (
+    keyDeb ck (
         .clk(fpga_clk),
-        .rst(rst_in),
-        .sw_i(switch2N4),
-        .sw_o(sw_sig),
-        .ck_i(ck_btn),
-        .ck_o(ck_sig),
-        .start_i(start_pg),
-        .start_o(start_pg_sig)
+        .rst(fpga_rst),
+        .key_i(ck_btn),
+        .key_o(ck_sig)
     );
 
     //IFecth
@@ -116,7 +110,7 @@ module CPU_TOP (
 
     wire spg_bufg;
     BUFG U1 (
-        .I(start_pg_sig),
+        .I(start_pg),
         .O(spg_bufg)
     );
 
@@ -296,7 +290,7 @@ module CPU_TOP (
         .SwitchCtrlLow(SwL_c),
         .SwitchCtrlMid(SwM_c),
         .SwitchCtrlHigh(SwH_c),
-        .switch_rdata(sw_sig),
+        .switch_rdata(switch2N4),
 
         .switch_wdata(sw_data)
     );

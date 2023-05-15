@@ -25,9 +25,9 @@ module keyDeb (
     always @(posedge clk) begin
         if (rst) begin
             cnt_key_touch_clk <= 21'd0;
-        end else if (key_i == 1'b1) begin
-            cnt_key_touch_clk <= 21'd0;
         end else if (key_i == 1'b0) begin
+            cnt_key_touch_clk <= 21'd0;
+        end else if (key_i == 1'b1) begin
             if (cnt_key_touch_clk == MAX_CNT) begin //20ms
                 cnt_key_touch_clk <= cnt_key_touch_clk;
             end else begin
