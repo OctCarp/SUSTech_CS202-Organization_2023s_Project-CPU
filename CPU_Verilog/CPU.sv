@@ -10,6 +10,10 @@ module CPU_TOP (
     output [23:0] led2N4,
     input Board_end,
 
+    output [11:0] v_rgb,
+    output v_vs,
+    output v_hs,
+
     input start_pg,
     input rx,
     output tx,
@@ -25,6 +29,11 @@ module CPU_TOP (
     //assign ins = Instruction;
     //
     //deb
+
+    //vga
+    wire v_c;
+    wire [35:0] vc_data_w;
+
     wire ck_sig;
 
     wire [15:0] board_io;
@@ -164,6 +173,7 @@ module CPU_TOP (
         .SwitchCtrlMid(SwM_c),
         .SwitchCtrlHigh(SwH_c),
         .SegCtrl(Seg_c),
+        .vga_ctrl(v_c),
         .BoardCtrl(Board_c)
     );
 
@@ -350,6 +360,25 @@ module CPU_TOP (
         .switch_rdata(switch2N4),
 
         .switch_wdata(sw_data)
+    );
+
+    vga_ctrl vctrl (
+        .clk(cpu_clk),
+        .rst(rst_in),
+        .vga_ctrl(v_c),
+        .data_in(write_data[15:0]),
+
+        .data(vc_data_w)
+    );
+
+    VGA vmain (
+        .clk(fpga_clk),
+        .rst(rst_in),
+        .vc_data(vc_data_w),
+
+        .rgb(v_rgb),
+        .vs(v_vs),
+        .hs(v_hs)
     );
 
 endmodule

@@ -55,6 +55,23 @@ set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN P20} [get_ports fpga_rst]
 set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN P5} [get_ports start_pg]
 set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN P1} [get_ports ck_btn]
 
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN H15} [get_ports {v_rgb[11]}]
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN J15} [get_ports {v_rgb[10]}]
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN G18} [get_ports {v_rgb[9]}]
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN G17} [get_ports {v_rgb[8]}]
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN H22} [get_ports {v_rgb[7]}]
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN J22} [get_ports {v_rgb[6]}]
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN H18} [get_ports {v_rgb[5]}]
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN H17} [get_ports {v_rgb[4]}]
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN K22} [get_ports {v_rgb[3]}]
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN K21} [get_ports {v_rgb[2]}]
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN G20} [get_ports {v_rgb[1]}]
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN H20} [get_ports {v_rgb[0]}]
+
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN M21} [get_ports {v_hs}]
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN L21} [get_ports {v_vs}]
+
+
 # keyboard
 set_property -dict {PACKAGE_PIN M2 IOSTANDARD LVCMOS33} [get_ports {col[3]}]
 set_property -dict {PACKAGE_PIN K6 IOSTANDARD LVCMOS33} [get_ports {col[2]}]

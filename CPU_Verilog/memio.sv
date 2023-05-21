@@ -12,7 +12,7 @@ module MemOrIO (
     input [15:0] io_rdata_switch,  // data read from switch,16 bits
     input [15:0] io_rdata_board,  // data read from board,16 bits
     input io_rdata_btn,
-    
+
     output [31:0] addr_out,  // address to memory 
     output [31:0] r_wdata,  // data to idecode32(register file) 
 
@@ -26,6 +26,7 @@ module MemOrIO (
     output SwitchCtrlMid,
     output SwitchCtrlHigh,  //拨码开关
     output SegCtrl,  //七段数码显示管
+    output vga_ctrl,
     output BoardCtrl  //小键盘
 );
 
@@ -40,13 +41,15 @@ module MemOrIO (
     assign LEDCtrlMid = (ioWrite && low_addr == 4'h1) ? _T : _F;
     assign LEDCtrlHigh = (ioWrite && low_addr == 4'h2) ? _T : _F;
     assign LEDCtrlLM = (ioWrite && low_addr == 4'h3) ? _T : _F;
-
+    assign vga_ctrl = (ioWrite && low_addr == 4'h7) ? _T : _F;
+    
     assign SwitchCtrlLow = (ioRead && low_addr == 4'h0) ? _T : _F;
     assign SwitchCtrlMid = (ioRead && low_addr == 4'h1) ? _T : _F;
     assign SwitchCtrlHigh = (ioRead && low_addr == 4'h2) ? _T : _F;
     assign ckin = (ioRead && low_addr == 4'h3) ? _T : _F;
     assign SegCtrl = (ioWrite && low_addr == 4'h8) ? _T : _F;
     assign BoardCtrl = (ioRead && low_addr == 4'h9) ? _T : _F;
+
 
 
     always @(*) begin
