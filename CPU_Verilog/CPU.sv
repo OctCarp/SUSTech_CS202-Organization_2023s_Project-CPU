@@ -5,8 +5,10 @@ module CPU_TOP (
     input fpga_clk,
     input [23:0] switch2N4,
     input ck_btn,
-
+    input [3:0] row,
+    output [3:0] col,
     output [23:0] led2N4,
+    input Board_end,
 
     input start_pg,
     input rx,
@@ -24,6 +26,8 @@ module CPU_TOP (
     //
     //deb
     wire ck_sig;
+
+    wire [15:0] board_io;
 
     keyDeb ck (
         .clk(fpga_clk),
@@ -148,7 +152,7 @@ module CPU_TOP (
 
         .io_rdata_btn(ck_sig),
         .io_rdata_switch(sw_data),
-        .io_rdata_board(board_data),
+        .io_rdata_board(board_io),
 
         .r_wdata(Reg_WriteData),
         .write_data(write_data),
@@ -271,6 +275,59 @@ module CPU_TOP (
         //
         //
     );
+    wire [15:0] board_val;
+
+    key_board kkk (
+        .clk(cpu_clk),
+        .rst(rst_in),
+        .bend(Board_end),
+        .row(row),
+        .col(col),
+        .keyboardval(board_val)
+    );
+    BinaryToDecimal kkk_btod (
+        .binary_in(board_val),
+        .decimal_out(board_data)
+    );
+
+    key_board_c keyC (
+        .clk(cpu_clk),
+        .rst(rst_in),
+        .key_board_c(Board_c),
+        .key_board_in(board_data),
+
+        .key_board_wdata(board_io)
+    );
+
+    wire [31:0] seg_in;
+
+    wire [15:0] seg_data;
+
+    seg_ctrl seg_ctrl (
+        .clk(cpu_clk),
+        .rst(rst_in),
+        .origindata(write_data[15:0]),
+        .sctrl(Seg_c),
+
+        .seg_data(seg_data)
+    );
+    wire [31:0] seg8 = {seg_data, board_val};
+
+    wire [63:0] seg_trans;
+
+    seg_trans_to_seg_in seg1 (
+        .seg_in(seg8),
+        .seg_trans(seg_trans)
+    );
+
+    seg_ces seg (
+        .clk(cpu_clk),
+        .rst(rst_in),
+        .seg_in(seg_trans),
+        .seg_en(seg_en),
+        .seg_out(seg_out)
+    );
+
 
     LED u_led (
         .clk(cpu_clk),
@@ -294,4 +351,5 @@ module CPU_TOP (
 
         .switch_wdata(sw_data)
     );
+
 endmodule
