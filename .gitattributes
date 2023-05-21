@@ -2,3 +2,5 @@
 * text=auto
 
 EDA_Xilinx/ip/** linguist-vendored
+
+ASM_Minisys-1A/new_version_asm/** linguist-vendored
