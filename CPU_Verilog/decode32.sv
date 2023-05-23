@@ -65,6 +65,8 @@ module IDecode (
         if (rst) begin
             for (int i = 0; i < 32; i++) begin
                 regs[i] <= 0;
+                regs[27] <= 32'hFFFF_FC00;
+                regs[28] <= 32'b1000_0000_0000;
             end
         end else if (RegWrite) begin
             regs[reg_write] <= write_data;

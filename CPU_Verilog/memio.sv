@@ -1,4 +1,5 @@
 `include "HEAD.svh"
+`include "IOHEAD.svh"
 
 module MemOrIO (
     input mRead,  // read memory, from control32 
@@ -31,24 +32,24 @@ module MemOrIO (
 );
 
     assign addr_out = addr_in;
-
+    wire ck_in;
 
     wire [3:0] low_addr = addr_in[3:0];
     reg [15:0] io_rdata;
 
     assign r_wdata = mRead ? m_rdata : {16'h0000, io_rdata};
-    assign LEDCtrlLow = (ioWrite && low_addr == 4'h0) ? _T : _F;
-    assign LEDCtrlMid = (ioWrite && low_addr == 4'h1) ? _T : _F;
-    assign LEDCtrlHigh = (ioWrite && low_addr == 4'h2) ? _T : _F;
-    assign LEDCtrlLM = (ioWrite && low_addr == 4'h3) ? _T : _F;
-    assign vga_ctrl = (ioWrite && low_addr == 4'h7) ? _T : _F;
-    
-    assign SwitchCtrlLow = (ioRead && low_addr == 4'h0) ? _T : _F;
-    assign SwitchCtrlMid = (ioRead && low_addr == 4'h1) ? _T : _F;
-    assign SwitchCtrlHigh = (ioRead && low_addr == 4'h2) ? _T : _F;
-    assign ckin = (ioRead && low_addr == 4'h3) ? _T : _F;
-    assign SegCtrl = (ioWrite && low_addr == 4'h8) ? _T : _F;
-    assign BoardCtrl = (ioRead && low_addr == 4'h9) ? _T : _F;
+    assign LEDCtrlLow = (ioWrite && low_addr == _led_low_waddr) ? _T : _F;
+    assign LEDCtrlMid = (ioWrite && low_addr == _led_mid_waddr) ? _T : _F;
+    assign LEDCtrlHigh = (ioWrite && low_addr == _led_high_waddr) ? _T : _F;
+    assign LEDCtrlLM = (ioWrite && low_addr == _led_lownmid_waddr) ? _T : _F;
+    assign vga_ctrl = (ioWrite && low_addr == _vga_waddr) ? _T : _F;
+    assign SegCtrl = (ioWrite && low_addr == _7seg_waddr) ? _T : _F;
+
+    assign SwitchCtrlLow = (ioRead && low_addr == _switch_low_raddr) ? _T : _F;
+    assign SwitchCtrlMid = (ioRead && low_addr == _switch_mid_raddr) ? _T : _F;
+    assign SwitchCtrlHigh = (ioRead && low_addr == _switch_high_raddr) ? _T : _F;
+    assign ckin = (ioRead && low_addr == _ck_btn_raddr) ? _T : _F;
+    assign BoardCtrl = (ioRead && low_addr == _board_raddr) ? _T : _F;
 
 
 
