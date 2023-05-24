@@ -221,27 +221,121 @@
 
 #### 3.CPU 内部结构：
 
-CPU 顶层：
-
+- [CPU顶层](https://github.com/OctCarp/SUSTech_CS202-Organization_2023s_Project-CPU/blob/main/CPU_Verilog/CPU.sv)
 ![CPU](img/CPU.png)
 
 
 
 
 
-![CPU_](img\CPU_.png)
+![CPU_](img/CPU_.png)
 
-![image-20230524234459811](img\memio.png)
+- [MemIO](https://github.com/OctCarp/SUSTech_CS202-Organization_2023s_Project-CPU/blob/main/CPU_Verilog/memio.sv)
 
-![image-20230524234723791](img\mem.png)
+  | 端口名称          | 功用描述                                 |
+  | ----------------- | ---------------------------------------- |
+  | `mRead`           | 从控制器读取内存数据                     |
+  | `mWrite`          | 向控制器写入内存数据                     |
+  | `ioRead`          | 从控制器读取I/O数据                      |
+  | `ioWrite`         | 向控制器写入I/O数据                      |
+  | `m_rdata`         | 从内存读取的数据                         |
+  | `r_rdata`         | 从idecode32（寄存器文件）读取的数据      |
+  | `addr_in`         | 来自executs32中的alu_result的地址        |
+  | `io_rdata_switch` | 从开关读取的数据（16位）                 |
+  | `io_rdata_board`  | 从板上读取的数据（16位）                 |
+  | `io_rdata_btn`    | 按钮的数据                               |
+  | `addr_out`        | 写入内存的地址                           |
+  | `r_wdata`         | 写入idecode32（寄存器文件）的数据        |
+  | `write_data`      | 写入内存或I/O的数据（m_wdata、io_wdata） |
+  | `LEDCtrlLow`      | LED低位选择                              |
+  | `LEDCtrlMid`      | LED中间选择                              |
+  | `LEDCtrlHigh`     | LED高位选择                              |
+  | `LEDCtrlLM`       | LED 低位和中间位同时选择                 |
+  | `SwitchCtrlLow`   | 低位开关控制                             |
+  | `SwitchCtrlMid`   | 中间开关控制                             |
+  | `SwitchCtrlHigh`  | 高位开关控制                             |
+  | `SegCtrl`         | 液晶显示控制                             |
+  | `vga_ctrl`        | VGA控制                                  |
+  | `BoardCtrl`       | 键盘控制                                 |
 
-![image-20230524235146237](img\Ifetch.png)
+![](img/memio.png)
 
-![image-20230524235257916](img\IDecoder.png)
+![](img/mem.png)
 
-![image-20230524235624787](img\keyDeb.png)
+- [IFetch](https://github.com/OctCarp/SUSTech_CS202-Organization_2023s_Project-CPU/blob/main/CPU_Verilog/Ifetc32.sv)
 
-![image-20230524232454109](img\keyboard.png)
+| 端口名称     | 功用描述                  |
+| ------------ | ------------------------- |
+| `clk`        | 系统时钟                  |
+| `rst`        | 复位信号                  |
+| `Branch`     | 分支控制信号              |
+| `nBranch`    | 非分支控制信号            |
+| `Jmp`        | 跳转控制信号              |
+| `Jal`        | 跳转并链接控制信号        |
+| `Jr`         | 寄存器跳转控制信号        |
+| `Zero`       | 零信号                    |
+| `rd_v`       | 读取的寄存器值            |
+| `alu_addr_i` | ALU计算的地址             |
+| `upg_rst_i`  | UPG复位信号（高电平有效） |
+| `upg_clk_i`  | UPG时钟信号（10MHz）      |
+| `upg_wen_i`  | UPG写使能信号             |
+| `upg_adr_i`  | UPG写地址                 |
+| `upg_dat_i`  | UPG写数据                 |
+| `upg_done_i` | UPG程序完成信号           |
+| `Ins`        | 指令输出                  |
+| `pc_o`       | 程序计数器输出            |
+| `rom_addr`   | ROM地址输出               |
+| `link_addr`  | 链接地址寄存器            |
+
+![](img/Ifetch.png)
+
+- [IDecoder](https://github.com/OctCarp/SUSTech_CS202-Organization_2023s_Project-CPU/blob/main/CPU_Verilog/decode32.sv)
+
+  | 端口名称       | 功用描述               |
+  | -------------- | ---------------------- |
+  | `clk`          | 系统时钟               |
+  | `rst`          | 复位信号               |
+  | `Jal`          | 跳转并链接控制信号     |
+  | `Ins`          | 指令输入               |
+  | `Reg_Write_In` | 寄存器写入数据         |
+  | `ALU_In`       | ALU输入数据            |
+  | `RegWrite`     | 寄存器写使能信号       |
+  | `MemtoReg`     | 内存写入寄存器使能信号 |
+  | `RegDst`       | 寄存器目标选择控制信号 |
+  | `link_addr`    | 链接地址               |
+  | `imm_ex`       | 扩展后的立即数         |
+  | `rs_v`         | rs寄存器的值           |
+  | `rt_v`         | rt寄存器的值           |
+  | `regs_o[0:31]` | 所有寄存器的值         |
+
+![](img/IDecoder.png)
+
+- execute
+
+  | 端口名称       | 功用描述              |
+  | -------------- | --------------------- |
+  | `op`           | 操作码输入            |
+  | `rs_v`         | rs寄存器的值          |
+  | `rt_v`         | rt寄存器的值          |
+  | `shamt`        | 移位操作数            |
+  | `funct`        | 函数码                |
+  | `sftmd`        | 移位模式控制信号      |
+  | `imm_ex`       | 扩展后的立即数        |
+  | `pcp4`         | 程序计数器加4         |
+  | `ALUOp`        | ALU操作控制信号       |
+  | `I_type`       | I类指令标志           |
+  | `ALUSrc`       | ALU操作数选择控制信号 |
+  | `Zero`         | 零标志位              |
+  | `ALU_out`      | ALU输出结果           |
+  | `alu_addr_out` | ALU计算地址结果       |
+
+- switch
+
+  
+
+![](img/keyDeb.png)
+
+
 
 
 
@@ -272,8 +366,6 @@ begin_2:
 
 本次Project我们完成的bonus有：支持小键盘读入（小键盘可以清空，删除），七段数码管，VGA显示，uart通信，具体的bonus演示可参考我们的视频。
 
-
-
 #### 2.核心代码及必要说明
 
 ###### 小键盘：
@@ -292,6 +384,8 @@ begin_2:
 - 当按键按下时，根据当前的列和行值，更新键盘值（`keyboardval`）。
 
 该模块使用了状态机的方式进行键盘扫描和键值更新。它通过不断递增的计数器生成时钟信号，控制扫描和更新的时间。在不同的状态下，根据输入行和当前状态，设置输出列和按键按下的标志，并在按键按下时更新键盘值。此模块可用于实现基本的键盘输入功能，检测按键并输出相应的键值和状态信息。
+
+![](img/keyboard.png)
 
 ###### 七段数码管：
 
