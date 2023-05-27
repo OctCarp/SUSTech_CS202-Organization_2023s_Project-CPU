@@ -456,7 +456,7 @@
 | `key_i`  | 输入按键信号（未被消抖） |
 | `key_o`  | 输出去抖后的按键信号     |
 
-![keyDeb](img\keyDeb.png)
+![keyDeb](img/keyDeb.png)
 
 - [LED](../CPU_Verilog/led.sv)
 
@@ -472,8 +472,6 @@
 | `LEDCtrlLM`   | 从 MemIO 中来的，低 16 位的 LED 输出需要更新的控制信号       |
 | `ledwdata`    | 写入 LED 模块的数据，注意数据线只有 16 根，最多有 16 位有效数据用来更新 |
 | `ledout`      | 向板子上输出的 24 位 LED 信号                                |
-
-
 
 
 ![](img/LED.png)
@@ -844,7 +842,7 @@ tb111_div1_2:
 | `key_board_in`    | 来自键盘输入的数据，16 位          |
 | `key_board_wdata` | 传递给 `memorio` 模块的数据，16 位 |
 
-![keyctrl](img\keyctrl.png)
+![keyctrl](img/keyctrl.png)
 
 - [keyboard](../CPU_Verilog/device/key_board.sv)
 
