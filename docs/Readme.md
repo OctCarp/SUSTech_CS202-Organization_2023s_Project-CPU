@@ -832,7 +832,7 @@ tb111_div1_2:
 
 - [keyboard_ctrl](../CPU_Verilog/device/keyboard_ctrl.sv)
 
-​	   keyboard控制模块，当键盘被激活时，根据控制信号 `key_board_c` 的状态，将输入的键盘数据 `key_board_in` 传递给 `key_board_wdata` 输出端口，以供	   其他模块（例如 `Memio`）使用。
+​	   keyboard控制模块，当键盘被激活时，根据控制信号 `key_board_c` 的状态，将输入的键盘数据 `key_board_in` 传递给 `key_board_wdata` 输出端口，以供其他模块（例如 `Memio`）使用。
 
 | 端口名称          | 功用描述                           |
 | ----------------- | ---------------------------------- |
