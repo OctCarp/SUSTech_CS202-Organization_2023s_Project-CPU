@@ -48,5 +48,5 @@ For example, if you want to do scene 1 test case `001`:
 3. Press Program Restart Button again to start the new program
 4. Let "Testcase ID Input" low 3 bits switch be `001` (`1` means on), then press Input confirm button
 5. Let Binary Value Input low 8 bits be the number 1 you want to input, then press Input confirm button, the Binary Value Input display will show the number 1 in high 8 bits.
-2. Let Binary Value Input low 8 bits be the number 2 you want to input, then press Input confirm button, the Binary Value Input display will show the number 2 in low 8 bits.
-2. Press Input confirm button, then the led or keyboard will show the result.
+6. Let Binary Value Input low 8 bits be the number 2 you want to input, then press Input confirm button, the Binary Value Input display will show the number 2 in low 8 bits.
+7. Press Input confirm button, then the led or keyboard will show the result.
